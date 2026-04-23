@@ -72,9 +72,8 @@ Return ONLY a JSON object with two keys:
 
 Ensure your response is valid parseable JSON.
 """
-        # Call Groq API
         completion = groq_client.chat.completions.create(
-            model="llama3-70b-8192",
+            model="llama-3.1-70b-versatile",
             messages=[
                 {"role": "system", "content": "You are a senior database architect that writes highly optimized SQL queries."},
                 {"role": "user", "content": prompt}
