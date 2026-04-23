@@ -1,6 +1,21 @@
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import type { Session, User } from '@supabase/supabase-js';
+import { createBrowserClient } from '@supabase/ssr';
 
-export const supabase = createClientComponentClient();
+// Lazy-initialize the Supabase client so the build doesn't crash
+// when NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY are not yet set.
+let _supabase: ReturnType<typeof createBrowserClient> | null = null;
 
-export type { Session, User };
+export function getSupabase() {
+  if (_supabase) return _supabase;
+
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!url || !key) {
+    throw new Error(
+      'Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY environment variables.'
+    );
+  }
+
+  _supabase = createBrowserClient(url, key);
+  return _supabase;
+}

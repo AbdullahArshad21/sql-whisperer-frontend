@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 import { Database, Loader2 } from "lucide-react";
 import Link from "next/link";
 
@@ -20,6 +20,7 @@ export default function LoginPage() {
     setError(null);
 
     try {
+      const supabase = getSupabase();
       if (isLogin) {
         const { error } = await supabase.auth.signInWithPassword({
           email,
@@ -31,9 +32,6 @@ export default function LoginPage() {
         const { error } = await supabase.auth.signUp({
           email,
           password,
-          options: {
-            emailRedirectTo: `${location.origin}/auth/callback`,
-          },
         });
         if (error) throw error;
         alert("Check your email for the confirmation link.");

@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 import { Database, LogOut, Send, Search, Table2, History, Plus, Loader2 } from "lucide-react";
 import ChatMessage from "@/components/ChatMessage";
 import SqlBlock from "@/components/SqlBlock";
@@ -33,6 +33,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     const checkUser = async () => {
+      const supabase = getSupabase();
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
         router.push("/login");
@@ -49,7 +50,7 @@ export default function DashboardPage() {
   }, [messages]);
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    await getSupabase().auth.signOut();
     router.push("/login");
   };
 
