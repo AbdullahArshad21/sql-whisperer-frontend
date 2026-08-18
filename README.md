@@ -82,7 +82,7 @@ Endpoints:
 ```bash
 cd frontend
 npm install
-```
+---
 
 Create a `.env.local` file in `frontend/`:
 
@@ -98,7 +98,7 @@ Run the dev server:
 npm run dev
 ```
 
-Visit `http://localhost:3000`.
+
 
 ### 3. Database
 
@@ -115,4 +115,5 @@ The `execute-query` endpoint accepts Supabase credentials and arbitrary SQL from
 
 ## License
 
-No license specified.
+No license specified. 
+but it will soon
