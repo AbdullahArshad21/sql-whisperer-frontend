@@ -100,7 +100,7 @@ npm run dev
 
 
 
-### 3. Database
+### 3. Databaseeeeee
 
 Run `schema.sql` in your Supabase project's SQL editor to set up the `profiles`, `connections`, and `query_history` tables used by the app.
 
